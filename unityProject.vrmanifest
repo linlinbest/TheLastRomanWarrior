@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.thelastromanwarrior.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "E:\\CIS568-2022SPRING\\TheLastRomanWarrior\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "TheLastRomanWarrior [Testing]"
+        }
+      }
+    }
+  ]
+}
