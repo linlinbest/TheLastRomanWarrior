@@ -1,0 +1,193 @@
+fileFormatVersion: 2
+guid: 0355d23d05ab98f42a03406fc1ba31f5
+timeCreated: 1529153928
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: battering_ram_exp12
+    100002: //RootNode
+    100004: Bone001
+    100006: Bone002
+    100008: Bone020
+    100010: Bone020(mirrored)
+    100012: Bone021
+    100014: Bone021(mirrored)
+    100016: Bone022
+    100018: Bone023
+    100020: Bone024
+    100022: Bone025
+    100024: Bone026
+    100026: IK Chain001
+    100028: IK Chain002
+    100030: Object001
+    100032: Object002
+    100034: Object003
+    100036: Object004
+    400000: battering_ram_exp12
+    400002: //RootNode
+    400004: Bone001
+    400006: Bone002
+    400008: Bone020
+    400010: Bone020(mirrored)
+    400012: Bone021
+    400014: Bone021(mirrored)
+    400016: Bone022
+    400018: Bone023
+    400020: Bone024
+    400022: Bone025
+    400024: Bone026
+    400026: IK Chain001
+    400028: IK Chain002
+    400030: Object001
+    400032: Object002
+    400034: Object003
+    400036: Object004
+    4300000: battering_ram_exp12
+    4300002: Object001
+    4300004: Object002
+    4300006: Object003
+    4300008: Object004
+    7400000: Battering_ram_attack
+    9500000: //RootNode
+    13700000: battering_ram_exp12
+    13700002: Object001
+    13700004: Object002
+    13700006: Object003
+    13700008: Object004
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Battering_ram_attack
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 180
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: battering_ram_exp12
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone020
+        weight: 1
+      - path: Bone001/Bone020(mirrored)
+        weight: 1
+      - path: Bone001/Bone021
+        weight: 1
+      - path: Bone001/Bone021(mirrored)
+        weight: 1
+      - path: Bone001/Bone022
+        weight: 1
+      - path: Bone001/Bone022/Bone023
+        weight: 1
+      - path: Bone001/Bone022/Bone023/Bone024
+        weight: 1
+      - path: Bone001/Bone022/Bone023/Bone024/Bone025
+        weight: 1
+      - path: Bone001/Bone022/Bone023/Bone024/Bone025/Bone026
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Object004
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
