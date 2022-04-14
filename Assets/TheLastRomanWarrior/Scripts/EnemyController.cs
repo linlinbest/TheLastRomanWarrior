@@ -12,7 +12,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float moveSpeed;
     //self
     private GameObject enemyObj;
-    
+    private bool isRun;
     
     void Awake()
     {
@@ -21,12 +21,13 @@ public class EnemyController : MonoBehaviour
         isAttack = false;
         moveSpeed = 20f;
         enemyObj = this.gameObject;
+        
     }
     //
     void enemyMove()
     {
-     
         
+
     }
 
     void enemyAttack()
@@ -41,6 +42,6 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        enemyMove();
     }
 }
