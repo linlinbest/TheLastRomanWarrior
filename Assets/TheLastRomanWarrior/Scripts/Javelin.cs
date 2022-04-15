@@ -13,12 +13,25 @@ public class Javelin : Throwable
     [SerializeField]
     private float validSpeed = 0.5f;
 
-    private bool canStick = false;
+    [Tooltip("Relative rotation to hand")]
+    [SerializeField]
+    private Vector3 relativeRotation = Vector3.zero;
+
+    private bool isReleased;
+    private bool canStick;
+
+    [SerializeField]
+    private Rigidbody headRB;
+
+	[SerializeField]
+    private Rigidbody shaftRB;
+
     
     // Start is called before the first frame update
     void Start()
     {
         canStick = false;
+        isReleased = true;
     }
 
     // Update is called once per frame
@@ -27,18 +40,68 @@ public class Javelin : Throwable
         
     }
 
+    // protected override void OnHandHoverBegin(Hand hand)
+    // {
+    //     base.OnHandHoverBegin(hand);
+    //     // "Catch" the throwable by holding down the interaction button instead of pressing it.
+    //     // Only do this if the throwable is moving faster than the prescribed threshold speed,
+    //     // and if it isn't attached to another hand
+    //     if ( !attached && catchingSpeedThreshold != -1)
+    //     {
+
+    //     }
+    // }
+
+    protected override void HandAttachedUpdate(Hand hand)
+    {
+        base.HandAttachedUpdate(hand);
+
+        if (onHeldUpdate != null)
+        {
+            attachPosition = hand.transform.position;
+            attachRotation = hand.transform.rotation * Quaternion.Euler(relativeRotation);
+            transform.position = hand.transform.position;
+            transform.rotation = hand.transform.rotation * Quaternion.Euler(relativeRotation);
+        }
+    }
+
+    protected override void OnAttachedToHand(Hand hand)
+    {
+        base.OnAttachedToHand(hand);
+        
+        
+        isReleased = false;
+    }
+
+    protected override void OnDetachedFromHand(Hand hand)
+    {
+        base.OnDetachedFromHand(hand);
+
+        isReleased = true;
+    }
+
     public override void GetReleaseVelocities(Hand hand, out Vector3 velocity, out Vector3 angularVelocity)
     {
         base.GetReleaseVelocities(hand, out velocity, out angularVelocity);
+
+        
         angularVelocity = Vector3.zero;
+
+        headRB.velocity = velocity;
+        headRB.angularVelocity = angularVelocity;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
+        if (!isReleased)
+        {
+            return;
+        }
+
         GameObject hitObject = collision.collider.gameObject;
         Enemy enemy = hitObject.GetComponent<Enemy>();
 
-        float rbSpeed = GetComponent<Rigidbody>().velocity.magnitude;
+        float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
         {
             enemy.ReduceHealth(damage);
@@ -87,12 +150,17 @@ public class Javelin : Throwable
 		// 	}
 		// }
 
-
         // this.rigidbody.detectCollisions = false;
-        this.rigidbody.velocity = Vector3.zero;
-		this.rigidbody.angularVelocity = Vector3.zero;
-        this.rigidbody.isKinematic = true;
-        this.rigidbody.useGravity = false;
+        shaftRB.velocity = Vector3.zero;
+		shaftRB.angularVelocity = Vector3.zero;
+        shaftRB.isKinematic = true;
+        shaftRB.useGravity = false;
+
+        headRB.velocity = Vector3.zero;
+		headRB.angularVelocity = Vector3.zero;
+        headRB.isKinematic = true;
+        headRB.useGravity = false;
+
         transform.parent = hitTarget.transform;
 
     }
