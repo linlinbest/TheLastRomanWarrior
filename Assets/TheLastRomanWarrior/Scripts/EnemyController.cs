@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
-using System.Runtime;
 using Random = System.Random;
+
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,37 +12,58 @@ public class EnemyController : MonoBehaviour
     public Animator enemyAnim;
     [SerializeField] private GameObject player;
 
-   
+
     //self attributes
     private GameObject enemyObj;
-    public GameObject javelin;
-    private Transform javelinSpawnPoint;
+
+    //Instantiate object
+    public GameObject throwJavelinInstance;
+
+    //model's holding
+    [SerializeField] private GameObject javelinSpawnPoint;
+    [SerializeField] private GameObject javelinModel;
     private Rigidbody enemyRigid;
-    
-    [Header("Moving Control")]
-    [SerializeField] private float moveSpeed;
+
+    [Header("Moving Control")] [SerializeField]
+    private float moveSpeed;
     public float minDistance;
+
+    private float maxShootDistance;
+    //Only inside the shoot range
+
+    public bool enemyMoveLock;
+
+    private bool canAttack;
     private Vector3 movingVec;
     private bool isRun;
     private bool isReachMin;
     private bool isAttack;
+
+    private float javelinSpeed;
 
     #region Timer
 
     private float timer;
 
     #endregion
-    
+
     void Awake()
     {
         enemyAnim = this.GetComponent<Animator>();
-        player=GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindGameObjectWithTag("Player");
+        canAttack = false;
         isAttack = false;
-        moveSpeed = 10f;
+        moveSpeed = 2f;
+        enemyMoveLock = false;
+        maxShootDistance = 30f;
         enemyObj = this.gameObject;
         minDistance = 12f;
         enemyRigid = this.GetComponent<Rigidbody>();
+        javelinSpawnPoint = GameObject.Find("WeaponHandlePoint");
+        javelinModel = GameObject.Find("JavelinModel");
+        javelinSpeed = 20f;
     }
+
     //
     void calculateEnemyMove()
     {
@@ -56,37 +77,47 @@ public class EnemyController : MonoBehaviour
             //Enemy turns towards player
             Vector3 targetEnemyForwardDir = Vector3.Slerp(enemyObj.transform.forward, targetDir, 0.3f);
             enemyObj.transform.forward = targetEnemyForwardDir;
-           //Enemy move
-           float distance = Vector3.Magnitude(playerPos - enemyObj.transform.position);
-           if (distance > minDistance)
-           {
-               Vector3 tempVec = moveSpeed * enemyObj.transform.forward;
-               movingVec = Vector3.Slerp(movingVec, tempVec, 0.3f);
-               isRun = true;
-               isReachMin = false;
-           }
-           else
-           {
-               movingVec=Vector3.zero;
-               isRun = false;
-               isReachMin = true;
-           }
-           
+            //Enemy move
+            float distance = Vector3.Magnitude(playerPos - enemyObj.transform.position);
+            if (distance < maxShootDistance)
+            {
+                canAttack = true;
+            }
+            else
+            {
+                canAttack = false;
+            }
+
+            if (distance >= minDistance+1f)
+            {
+                Vector3 tempVec = moveSpeed * enemyObj.transform.forward;
+                movingVec = Vector3.Slerp(movingVec, tempVec, 0.3f);
+                isRun = true;
+                isReachMin = false;
+            }
+            else
+            {
+                movingVec = Vector3.zero;
+                isRun = false;
+                isReachMin = true;
+            }
+
         }
         else
         {
             //player is null
-            movingVec=Vector3.zero;
+            movingVec = Vector3.zero;
             isRun = false;
         }
-        enemyAnim.SetBool("isRun",isRun);
-        enemyAnim.SetBool("isReachMin",isReachMin);
+
+        enemyAnim.SetBool("isRun", isRun);
+        enemyAnim.SetBool("isReachMin", isReachMin);
     }
 
     //Random num was generated to control whether enemy can attack at this time
     int generateRandomNum()
     {
-       
+
         if (timer >= 1.5f)
         {
             Random random = new Random();
@@ -97,12 +128,14 @@ public class EnemyController : MonoBehaviour
         else
         {
             //during interval
-            return -1;
+            return 0;
         }
     }
+
+    //Do the attack animation
     void enemyAttack(int randomNum)
     {
-        if (randomNum >= 30)
+        if (randomNum >= 25 && canAttack)
         {
             isAttack = true;
         }
@@ -110,7 +143,9 @@ public class EnemyController : MonoBehaviour
         {
             isAttack = false;
         }
-        enemyAnim.SetBool("isAttack",isAttack);
+
+        // When attack, lock move
+        enemyAnim.SetBool("isAttack", isAttack);
     }
 
     bool checkPlayerValidity()
@@ -121,10 +156,12 @@ public class EnemyController : MonoBehaviour
         }
         else return true;
     }
+
     void Start()
     {
-        
+
     }
+
     void Update()
     {
         timer += Time.deltaTime;
@@ -135,14 +172,65 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     {
         //actual move
-        enemyRigid.position += movingVec * Time.deltaTime;
+        if (isRun && !enemyMoveLock)
+        {
+            enemyRigid.position += movingVec * Time.deltaTime;
+        }
     }
+    
 
     //Animation event
+
+    public void launchJavelin()
+    {
+        StartCoroutine(startShoot());
+    }
+
+    IEnumerator startShoot()
+    {
+        GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
+            javelinSpawnPoint.transform.rotation);
+        
+        Vector3 targetPos = player.transform.position;
+        float distanceTotarget = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
+        bool isReach = false;
+        while (!isReach)
+        {
+            tempJavelinInstance.transform.LookAt(targetPos);
+            float angle = Mathf.Min(1, Vector3.Distance(this.transform.position, targetPos) / distanceTotarget) * 45;
+            tempJavelinInstance.transform.rotation = tempJavelinInstance.transform.rotation *
+                                                     Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
+            float currentDist = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
+            if (currentDist < 0.5f) isReach = true;
+            tempJavelinInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
+            yield return null;
+        }
+    }
+
+
+    public void changeToThrow()
+    {
+        enemyMoveLock = true;
+        javelinModel.SetActive(true);
+        javelinSpawnPoint.transform.rotation=Quaternion.Euler(0,0,0);
+    }
+
+    public void changeToHold()
+    {
+
+        enemyMoveLock = false;
+        javelinModel.SetActive(true);
+        Debug.Log("Move lock :"+enemyMoveLock);
+            
+        javelinSpawnPoint.transform.rotation=Quaternion.Euler(-90,0,0);
+    }
     public void throwJavelin()
     {
-        Debug.Log("throw");
+        enemyMoveLock = true;
+        launchJavelin();
+        javelinModel.SetActive(false);
     }
+    
     // Update is called once per frame
 
 }
