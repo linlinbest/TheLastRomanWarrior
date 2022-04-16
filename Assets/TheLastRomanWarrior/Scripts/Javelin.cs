@@ -84,7 +84,11 @@ public class Javelin : Throwable
     {
         base.GetReleaseVelocities(hand, out velocity, out angularVelocity);
 
-        
+        // Only keep the upward speed of the javelin
+        Vector3 localVelocity = transform.worldToLocalMatrix * velocity;
+        localVelocity = Vector3.Scale(localVelocity, Vector3.up);
+        velocity = transform.localToWorldMatrix * localVelocity;
+
         angularVelocity = Vector3.zero;
 
         headRB.velocity = velocity;
