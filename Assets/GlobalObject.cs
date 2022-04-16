@@ -81,12 +81,20 @@ public class GlobalObject : MonoBehaviour
         }
     }
 
+    void endGame()
+    {
+        SceneManager.LoadScene("BeginScene");
+    }
+
     void invaderDestoryed()
     {
         enemyDestoried++;
         if (enemyDestoried== maxEnemyNum)
         {
-            SceneManager.LoadScene("BeginScene");
+            GameObject winImage = GameObject.Find("/Canvas/WinUI");
+            winImage.SetActive(true);
+            Invoke("endGame", 5f);
+
         }
 
     }
