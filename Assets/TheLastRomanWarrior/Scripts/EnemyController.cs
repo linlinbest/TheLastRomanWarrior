@@ -41,6 +41,8 @@ public class EnemyController : MonoBehaviour
 
     private float javelinSpeed;
 
+    public System.Action dieAction;
+
     #region Timer
 
     private float timer;

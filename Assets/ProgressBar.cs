@@ -28,7 +28,7 @@ public class ProgressBar : MonoBehaviour
     void GetCurrentFilled()
     {        
         GlobalObject global = GameObject.Find("GlobalObject").GetComponent<GlobalObject>();
-        float currentFilled = global.enemyGenerated - minimum;
+        float currentFilled = global.enemyDestoried - minimum;
         mask.fillAmount = currentFilled / (maximum - minimum);
     }
 }

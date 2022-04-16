@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 using System;
+using UnityEngine.SceneManagement;
 
 
 public class GlobalObject : MonoBehaviour
@@ -21,6 +22,7 @@ public class GlobalObject : MonoBehaviour
 
     public int maxEnemyNum;
     public int enemyGenerated;
+    public int enemyDestoried;
 
 
     int waveIdx; //index for waves
@@ -44,6 +46,7 @@ public class GlobalObject : MonoBehaviour
         xOffset = 0.0f;
         zOffset = 0.0f;
         enemyGenerated =0;
+        enemyDestoried = 0;
 
 
     }
@@ -63,7 +66,8 @@ public class GlobalObject : MonoBehaviour
                     xOffset = Random.Range(-5, 5);
                     zOffset = Random.Range(-5, 5);
                     Vector3 spawnPos = new Vector3(generatorPos.x + xOffset, generatorPos.y, generatorPos.z + zOffset);
-                    Instantiate(humanprefab, spawnPos, gameObject.transform.rotation);
+                    Enemy newEnemy = Instantiate(humanprefab, spawnPos, gameObject.transform.rotation).GetComponent<Enemy>();
+                    newEnemy.dieAction += invaderDestoryed;
                     enemyGenerated += 1;
                     if (enemyGenerated == maxEnemyNum) break;
                 }
@@ -75,7 +79,15 @@ public class GlobalObject : MonoBehaviour
             Debug.Log("wave: "+ waveIdx);
 
         }
+    }
 
+    void invaderDestoryed()
+    {
+        enemyDestoried++;
+        if (enemyDestoried== maxEnemyNum)
+        {
+            SceneManager.LoadScene("BeginScene");
+        }
 
     }
 }
