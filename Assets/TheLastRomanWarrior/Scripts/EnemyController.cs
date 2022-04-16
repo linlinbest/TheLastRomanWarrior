@@ -204,7 +204,7 @@ public class EnemyController : MonoBehaviour
         bool isReach = false;
         while (!isReach)
         {
-           
+          
             tempJavelinInstance.transform.LookAt(targetPos);
             float angle = Mathf.Min(1, Vector3.Distance(tempJavelinInstance.transform.position, targetPos) / distanceTotarget) * 45;
             tempJavelinInstance.transform.rotation = tempJavelinInstance.transform.rotation *
