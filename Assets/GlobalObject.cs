@@ -24,6 +24,8 @@ public class GlobalObject : MonoBehaviour
     public int enemyGenerated;
     public int enemyDestoried;
 
+    public GameObject winUI;
+
 
     int waveIdx; //index for waves
     int totalWaveNum; //number of total waves
@@ -81,12 +83,19 @@ public class GlobalObject : MonoBehaviour
         }
     }
 
+    void endGame()
+    {
+        SceneManager.LoadScene("BeginScene");
+    }
+
     void invaderDestoryed()
     {
         enemyDestoried++;
         if (enemyDestoried== maxEnemyNum)
         {
-            SceneManager.LoadScene("BeginScene");
+            winUI.SetActive(true);
+            Invoke("endGame", 5f);
+
         }
 
     }

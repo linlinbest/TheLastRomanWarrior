@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
         enemyRigid = this.GetComponent<Rigidbody>();
         javelinSpawnPoint = GameObject.Find("WeaponHandlePoint");
         javelinModel = GameObject.Find("JavelinModel");
-        javelinSpeed = 20f;
+        javelinSpeed = 5f;
     }
 
     //
