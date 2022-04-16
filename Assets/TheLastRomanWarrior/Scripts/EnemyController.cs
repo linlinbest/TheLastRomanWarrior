@@ -88,7 +88,7 @@ public class EnemyController : MonoBehaviour
                 canAttack = false;
             }
 
-            if (distance >= minDistance+1f)
+            if (distance >= minDistance)
             {
                 Vector3 tempVec = moveSpeed * enemyObj.transform.forward;
                 movingVec = Vector3.Slerp(movingVec, tempVec, 0.3f);
@@ -135,7 +135,7 @@ public class EnemyController : MonoBehaviour
     //Do the attack animation
     void enemyAttack(int randomNum)
     {
-        if (randomNum >= 25 && canAttack)
+        if (randomNum >= 30 && canAttack)
         {
             isAttack = true;
         }
@@ -188,6 +188,7 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator startShoot()
     {
+        //throw javelin
         GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
             javelinSpawnPoint.transform.rotation);
         
@@ -206,8 +207,7 @@ public class EnemyController : MonoBehaviour
             yield return null;
         }
     }
-
-
+    
     public void changeToThrow()
     {
         enemyMoveLock = true;
@@ -220,8 +220,6 @@ public class EnemyController : MonoBehaviour
 
         enemyMoveLock = false;
         javelinModel.SetActive(true);
-        Debug.Log("Move lock :"+enemyMoveLock);
-            
         javelinSpawnPoint.transform.rotation=Quaternion.Euler(-90,0,0);
     }
     public void throwJavelin()
