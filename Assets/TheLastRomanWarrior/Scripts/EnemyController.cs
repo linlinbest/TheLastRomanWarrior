@@ -59,7 +59,7 @@ public class EnemyController : MonoBehaviour
         enemyMoveLock = false;
         maxShootDistance = 30f;
         enemyObj = this.gameObject;
-        minDistance = 12f;
+        minDistance = 6f;
         enemyRigid = this.GetComponent<Rigidbody>();
         javelinSpawnPoint = GameObject.Find("WeaponHandlePoint");
         javelinModel = GameObject.Find("JavelinModel");
