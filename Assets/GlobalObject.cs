@@ -17,7 +17,10 @@ public class GlobalObject : MonoBehaviour
     private float[] waveTime;     //time for each wave
 
     [SerializeField]
-    public int numberEnemyEachPos;  //number of enemy spawned for each position
+    private int numberEnemyEachPos;  //number of enemy spawned for each position
+
+    public int maxEnemyNum;
+    public int enemyGenerated;
 
 
     int waveIdx; //index for waves
@@ -25,8 +28,11 @@ public class GlobalObject : MonoBehaviour
     int totalHumanEnemyPosNum;
     float level_time;
     Vector3[] enemyPos;
-    int xOffset;
+    float xOffset;
     float zOffset;
+    
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +41,10 @@ public class GlobalObject : MonoBehaviour
         totalWaveNum = waveTime.Length;
         totalHumanEnemyPosNum = humanEnemyGenerator.Length;
         level_time = 0.0f;
-        
+        xOffset = 0.0f;
+        zOffset = 0.0f;
+        enemyGenerated =0;
+
 
     }
 
@@ -43,9 +52,8 @@ public class GlobalObject : MonoBehaviour
     void Update()
     {
         level_time += Time.deltaTime;
-        if (waveIdx < totalWaveNum && level_time >=waveTime[waveIdx] )
+        if (waveIdx < totalWaveNum && level_time >=waveTime[waveIdx]  && enemyGenerated < maxEnemyNum)
         {
-            Debug.Log("level_time: " + level_time);
             for (int i=0; i<totalHumanEnemyPosNum; i++)
             {
                 Vector3 generatorPos = humanEnemyGenerator[i].transform.position;
@@ -56,9 +64,11 @@ public class GlobalObject : MonoBehaviour
                     zOffset = Random.Range(-5, 5);
                     Vector3 spawnPos = new Vector3(generatorPos.x + xOffset, generatorPos.y, generatorPos.z + zOffset);
                     Instantiate(humanprefab, spawnPos, gameObject.transform.rotation);
-
+                    enemyGenerated += 1;
+                    if (enemyGenerated == maxEnemyNum) break;
                 }
                 //Array.Clear(enemyPos, 0, enemyPos.Length);
+                if (enemyGenerated == maxEnemyNum) break;
 
             }
             waveIdx += 1;
