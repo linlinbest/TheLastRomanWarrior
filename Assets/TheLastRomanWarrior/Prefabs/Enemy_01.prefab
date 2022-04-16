@@ -2600,7 +2600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfef44a509610fa4dad7027aea0d7faa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 1
+  enemyAnim: {fileID: 0}
 --- !u!1 &8192373655688884543
 GameObject:
   m_ObjectHideFlags: 0

@@ -15672,14 +15672,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanEnemyGenerator:
   - {fileID: 1728031399}
-  - {fileID: 495463747}
   enemyWavePosNum: 
   waveTime:
   - 1
-  - 3
-  - 6
-  - 10
-  numberEnemyEachPos: 3
+  numberEnemyEachPos: 1
 --- !u!4 &1241933003
 Transform:
   m_ObjectHideFlags: 0
@@ -24048,7 +24044,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3.82
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalPosition.z
