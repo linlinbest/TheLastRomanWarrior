@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     private Collider enemyCollider;
     private Rigidbody enemyRigid;
+    public System.Action dieAction;
     // Start is called before the first frame update
     void Awake()
     {
@@ -45,6 +46,7 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
+        this.dieAction.Invoke();
         int deathNum = Random.Range(0, 2);
         enemyAnim.SetBool("isDeath",true);
         enemyAnim.SetInteger("DeathNum",deathNum);
