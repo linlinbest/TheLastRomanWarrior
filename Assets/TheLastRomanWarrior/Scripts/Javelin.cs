@@ -26,6 +26,10 @@ public class Javelin : Throwable
 	[SerializeField]
     private Rigidbody shaftRB;
 
+    private Quaternion prevRotation;
+    private Vector3 prevVelocity;
+	private Vector3 prevHeadPosition;
+
     
     // Start is called before the first frame update
     void Start()
@@ -33,6 +37,16 @@ public class Javelin : Throwable
         canStick = false;
         isReleased = true;
     }
+
+    void FixedUpdate()
+		{
+			if (isReleased)
+			{
+				prevRotation = transform.rotation;
+				prevVelocity = headRB.velocity;
+				prevHeadPosition = headRB.transform.position;
+			}
+		}
 
     // Update is called once per frame
     void Update()
@@ -69,6 +83,10 @@ public class Javelin : Throwable
     {
         base.OnAttachedToHand(hand);
         
+        shaftRB.isKinematic = false;
+        shaftRB.useGravity = true;
+        headRB.isKinematic = false;
+        headRB.useGravity = true;
         
         isReleased = false;
     }
@@ -85,9 +103,9 @@ public class Javelin : Throwable
         base.GetReleaseVelocities(hand, out velocity, out angularVelocity);
 
         // Only keep the upward speed of the javelin
-        Vector3 localVelocity = transform.worldToLocalMatrix * velocity;
-        localVelocity = Vector3.Scale(localVelocity, Vector3.up);
-        velocity = transform.localToWorldMatrix * localVelocity;
+        // Vector3 localVelocity = Quaternion.Inverse(transform.rotation) * velocity;
+        // localVelocity = Vector3.Scale(localVelocity, Vector3.up);
+        // velocity = transform.rotation * localVelocity;
 
         angularVelocity = Vector3.zero;
 
@@ -123,36 +141,38 @@ public class Javelin : Throwable
 
         if (canStick)
         {
-            StickInTarget(hitObject, true);
+            StickInTarget(collision, true);
         }
 
             
     }
 
-    private void StickInTarget(GameObject hitTarget, bool bSkipRayCast)
+    private void StickInTarget(Collision collision, bool bSkipRayCast)
     {
-        // Only stick in target if the collider is front of the arrow head
-		// if ( !bSkipRayCast )
-		// {
-		// 	RaycastHit[] hitInfo;
-		// 	hitInfo = Physics.RaycastAll( prevHeadPosition - prevVelocity * Time.deltaTime, prevForward, prevVelocity.magnitude * Time.deltaTime * 2.0f );
-		// 	bool properHit = false;
-		// 	for ( int i = 0; i < hitInfo.Length; ++i )
-		// 	{
-		// 		RaycastHit hit = hitInfo[i];
+        Vector3 prevUp = prevRotation * Vector3.up;
 
-		// 		if ( hit.collider == collision.collider )
-		// 		{
-		// 			properHit = true;
-		// 			break;
-		// 		}
-		// 	}
+        // Only stick in target if the collider is front of the javelin head
+		if ( !bSkipRayCast )
+		{
+			RaycastHit[] hitInfo;
+			hitInfo = Physics.RaycastAll( prevHeadPosition - prevVelocity * Time.deltaTime, prevUp, prevVelocity.magnitude * Time.deltaTime * 2.0f );
+			bool properHit = false;
+			for ( int i = 0; i < hitInfo.Length; ++i )
+			{
+				RaycastHit hit = hitInfo[i];
 
-		// 	if ( !properHit )
-		// 	{
-		// 		return;
-		// 	}
-		// }
+				if ( hit.collider == collision.collider )
+				{
+					properHit = true;
+					break;
+				}
+			}
+
+			if ( !properHit )
+			{
+				return;
+			}
+		}
 
         // this.rigidbody.detectCollisions = false;
         shaftRB.velocity = Vector3.zero;
@@ -165,6 +185,7 @@ public class Javelin : Throwable
         headRB.isKinematic = true;
         headRB.useGravity = false;
 
+        GameObject hitTarget = collision.collider.gameObject;
         transform.parent = hitTarget.transform;
 
     }

@@ -6962,6 +6962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1
+  enemyAnim: {fileID: 0}
 --- !u!65 &441311755
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7033,7 +7034,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441311753}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.36790928, y: 1.33, z: -2.46}
+  m_LocalPosition: {x: -0.36790928, y: 1.33, z: -3.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -30791,7 +30792,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3494477815023442204, guid: 4bea6a2ba77a0e245b695e615355747d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.702
+      value: 1.336
       objectReference: {fileID: 0}
     - target: {fileID: 3494477815023442204, guid: 4bea6a2ba77a0e245b695e615355747d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -30799,7 +30800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3494477815023442204, guid: 4bea6a2ba77a0e245b695e615355747d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.897
+      value: -2.4
       objectReference: {fileID: 0}
     - target: {fileID: 3494477815023442204, guid: 4bea6a2ba77a0e245b695e615355747d, type: 3}
       propertyPath: m_LocalRotation.w
