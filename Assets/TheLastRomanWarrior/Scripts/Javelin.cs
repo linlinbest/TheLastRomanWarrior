@@ -129,11 +129,16 @@ public class Javelin : Throwable
 
         GameObject hitObject = collision.collider.gameObject;
         Enemy enemy = hitObject.GetComponent<Enemy>();
+        PlayerEntity playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
 
         float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
         {
             enemy.ReduceHealth(damage);
+        }
+        else if (playerEntity && rbSpeed > validSpeed)
+        {
+            playerEntity.ReduceHealth(damage);
         }
         if (collision.relativeVelocity.magnitude > validSpeed)
         {
