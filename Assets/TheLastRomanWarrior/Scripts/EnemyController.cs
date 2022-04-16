@@ -195,9 +195,9 @@ public class EnemyController : MonoBehaviour
     IEnumerator StartShoot()
     {
         //throw javelin
-        Quaternion rotation=Quaternion.Euler(-90,0,0);
+        
         GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
-            rotation);
+            throwJavelinInstance.transform.rotation);
         
         Vector3 targetPos = player.transform.position;
         float distanceTotarget = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);

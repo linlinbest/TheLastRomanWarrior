@@ -26288,5 +26288,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Onager
       objectReference: {fileID: 0}
+    - target: {fileID: 8975165672540724178, guid: 33e3b7753d616c141a835fd437729a91, type: 3}
+      propertyPath: StoneInstance
+      value: 
+      objectReference: {fileID: 2208028758814644544, guid: 881cf4054c59c494a82029e5ac387ae9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33e3b7753d616c141a835fd437729a91, type: 3}

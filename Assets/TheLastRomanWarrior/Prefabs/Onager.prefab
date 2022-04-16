@@ -561,9 +561,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c64385a4e42cb40872a2822c3be7f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneModel: {fileID: 0}
-  launchPoint: {fileID: 0}
-  throwStoneInstance: {fileID: 0}
+  stoneModel: {fileID: 7964886331036758779}
+  launchPoint: {fileID: 4825654192797935554}
+  throwStoneInstance: {fileID: 2208028758814644544, guid: 881cf4054c59c494a82029e5ac387ae9, type: 3}
 --- !u!1 &4825654192797935554
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,6 +665,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efc88107bb8ebfe4eae0b5bb79225afe, type: 3}
+--- !u!1 &7964886331036758779 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2204086179377022090, guid: efc88107bb8ebfe4eae0b5bb79225afe, type: 3}
+  m_PrefabInstance: {fileID: 8079045795918313073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7969947599689361071 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2199014756887875806, guid: efc88107bb8ebfe4eae0b5bb79225afe, type: 3}
