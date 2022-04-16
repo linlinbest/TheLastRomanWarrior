@@ -189,18 +189,21 @@ public class EnemyController : MonoBehaviour
     IEnumerator startShoot()
     {
         //throw javelin
+        Quaternion rotation=Quaternion.Euler(-90,0,0);
         GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
-            javelinSpawnPoint.transform.rotation);
+            rotation);
         
         Vector3 targetPos = player.transform.position;
         float distanceTotarget = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         bool isReach = false;
         while (!isReach)
         {
+           
             tempJavelinInstance.transform.LookAt(targetPos);
-            float angle = Mathf.Min(1, Vector3.Distance(this.transform.position, targetPos) / distanceTotarget) * 45;
+            float angle = Mathf.Min(1, Vector3.Distance(tempJavelinInstance.transform.position, targetPos) / distanceTotarget) * 45;
             tempJavelinInstance.transform.rotation = tempJavelinInstance.transform.rotation *
                                                      Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
+            
             float currentDist = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
             if (currentDist < 0.5f) isReach = true;
             tempJavelinInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
@@ -225,6 +228,7 @@ public class EnemyController : MonoBehaviour
     public void throwJavelin()
     {
         enemyMoveLock = true;
+        javelinSpawnPoint.transform.rotation=Quaternion.Euler(90,0,0);
         launchJavelin();
         javelinModel.SetActive(false);
     }
