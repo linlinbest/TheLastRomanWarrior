@@ -212,7 +212,7 @@ MonoBehaviour:
   interactable: {fileID: 0}
   damage: 1
   validSpeed: 0.1
-  relativeRotation: {x: -90, y: -115, z: 110}
+  relativeRotation: {x: -128.895, y: -7.476, z: 9.868}
   headRB: {fileID: 7517725214201900953}
   shaftRB: {fileID: -8309321167149464430}
 --- !u!136 &8983177214206053309

@@ -83,17 +83,21 @@ public class Javelin : Throwable
     {
         base.OnAttachedToHand(hand);
         
-        shaftRB.isKinematic = false;
-        shaftRB.useGravity = true;
-        headRB.isKinematic = false;
-        headRB.useGravity = true;
-        
         isReleased = false;
+        canStick = false;
     }
 
     protected override void OnDetachedFromHand(Hand hand)
     {
         base.OnDetachedFromHand(hand);
+
+        shaftRB.isKinematic = false;
+        shaftRB.useGravity = true;
+        headRB.isKinematic = false;
+        headRB.useGravity = true;
+
+        headRB.velocity = shaftRB.velocity;
+        headRB.angularVelocity = shaftRB.angularVelocity;
 
         isReleased = true;
     }
@@ -107,10 +111,13 @@ public class Javelin : Throwable
         // localVelocity = Vector3.Scale(localVelocity, Vector3.up);
         // velocity = transform.rotation * localVelocity;
 
+        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        localVelocity = Vector3.Scale(localVelocity, Vector3.up);
+        velocity = transform.TransformDirection(localVelocity);
+
         angularVelocity = Vector3.zero;
 
-        headRB.velocity = velocity;
-        headRB.angularVelocity = angularVelocity;
+        
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -174,7 +181,6 @@ public class Javelin : Throwable
 			}
 		}
 
-        // this.rigidbody.detectCollisions = false;
         shaftRB.velocity = Vector3.zero;
 		shaftRB.angularVelocity = Vector3.zero;
         shaftRB.isKinematic = true;
