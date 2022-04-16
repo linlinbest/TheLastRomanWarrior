@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private int health = 1;
-
+    private EnemyController enemyctrl;
     [SerializeField] private Animator enemyAnim;
 
     private Collider enemyCollider;
@@ -19,6 +19,7 @@ public class Enemy : MonoBehaviour
         enemyAnim = this.GetComponent<Animator>();
         enemyCollider = this.GetComponent<Collider>();
         enemyRigid = this.GetComponent<Rigidbody>();
+        enemyctrl = this.GetComponent<EnemyController>();
     }
     void Start()
     {
@@ -40,7 +41,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void destroyObject()
+    private void DestroyObject()
     {
         Destroy(this.gameObject);
     }
@@ -52,6 +53,7 @@ public class Enemy : MonoBehaviour
         enemyAnim.SetInteger("DeathNum",deathNum);
         enemyCollider.enabled = false;
         enemyRigid.isKinematic = true;
-        Invoke("destroyObject",4);
+        enemyctrl.enemyMoveLock = true;
+        Invoke("DestroyObject",4);
     }
 }

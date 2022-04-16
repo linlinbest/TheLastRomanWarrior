@@ -67,11 +67,11 @@ public class EnemyController : MonoBehaviour
     }
 
     //
-    void calculateEnemyMove()
+    void CalculateEnemyMove()
     {
         //
         //every frame need to update player's position and vector
-        if (checkPlayerValidity())
+        if (CheckPlayerValidity())
         {
             //player is not null
             Vector3 playerPos = player.transform.position;
@@ -117,7 +117,7 @@ public class EnemyController : MonoBehaviour
     }
 
     //Random num was generated to control whether enemy can attack at this time
-    int generateRandomNum()
+    int GenerateRandomNum()
     {
 
         if (timer >= 1.5f)
@@ -135,7 +135,7 @@ public class EnemyController : MonoBehaviour
     }
 
     //Do the attack animation
-    void enemyAttack(int randomNum)
+    void EnemyAttack(int randomNum)
     {
         if (randomNum >= 30 && canAttack)
         {
@@ -150,7 +150,7 @@ public class EnemyController : MonoBehaviour
         enemyAnim.SetBool("isAttack", isAttack);
     }
 
-    bool checkPlayerValidity()
+    bool CheckPlayerValidity()
     {
         if (player == null)
         {
@@ -158,37 +158,41 @@ public class EnemyController : MonoBehaviour
         }
         else return true;
     }
-
     void Start()
     {
 
     }
-
     void Update()
     {
         timer += Time.deltaTime;
-        calculateEnemyMove();
-        enemyAttack(generateRandomNum());
+        CalculateEnemyMove();
+        EnemyAttack(GenerateRandomNum());
     }
 
     void FixedUpdate()
     {
+        
         //actual move
         if (isRun && !enemyMoveLock)
         {
-            enemyRigid.position += movingVec * Time.deltaTime;
+            enemyRigid.position += movingVec * Time.fixedDeltaTime;
+            //enemyObj.transform.Translate(enemyObj.transform.forward * moveSpeed * Time.fixedDeltaTime, Space.World); 
         }
     }
-    
+
+    void LateUpdate()
+    {
+       
+    }
 
     //Animation event
 
-    public void launchJavelin()
+    public void LaunchJavelin()
     {
-        StartCoroutine(startShoot());
+        StartCoroutine(StartShoot());
     }
 
-    IEnumerator startShoot()
+    IEnumerator StartShoot()
     {
         //throw javelin
         Quaternion rotation=Quaternion.Euler(-90,0,0);
@@ -217,7 +221,6 @@ public class EnemyController : MonoBehaviour
     {
         enemyMoveLock = true;
         javelinModel.SetActive(true);
-        javelinSpawnPoint.transform.rotation=Quaternion.Euler(0,0,0);
     }
 
     public void changeToHold()
@@ -225,13 +228,11 @@ public class EnemyController : MonoBehaviour
 
         enemyMoveLock = false;
         javelinModel.SetActive(true);
-        javelinSpawnPoint.transform.rotation=Quaternion.Euler(-90,0,0);
     }
     public void throwJavelin()
     {
         enemyMoveLock = true;
-        javelinSpawnPoint.transform.rotation=Quaternion.Euler(90,0,0);
-        launchJavelin();
+        LaunchJavelin();
         javelinModel.SetActive(false);
     }
     
