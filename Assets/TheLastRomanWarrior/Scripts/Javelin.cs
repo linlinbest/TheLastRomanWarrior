@@ -111,9 +111,9 @@ public class Javelin : Throwable
         // localVelocity = Vector3.Scale(localVelocity, Vector3.up);
         // velocity = transform.rotation * localVelocity;
 
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-        localVelocity = Vector3.Scale(localVelocity, Vector3.up);
-        velocity = transform.TransformDirection(localVelocity);
+        // Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+        // localVelocity = Vector3.Scale(localVelocity, Vector3.up);
+        // velocity = transform.TransformDirection(localVelocity);
 
         angularVelocity = Vector3.zero;
 
@@ -156,13 +156,13 @@ public class Javelin : Throwable
 
     private void StickInTarget(Collision collision, bool bSkipRayCast)
     {
-        Vector3 prevUp = prevRotation * Vector3.up;
+        Vector3 prevForward = prevRotation * Vector3.forward;
 
         // Only stick in target if the collider is front of the javelin head
 		if ( !bSkipRayCast )
 		{
 			RaycastHit[] hitInfo;
-			hitInfo = Physics.RaycastAll( prevHeadPosition - prevVelocity * Time.deltaTime, prevUp, prevVelocity.magnitude * Time.deltaTime * 2.0f );
+			hitInfo = Physics.RaycastAll( prevHeadPosition - prevVelocity * Time.deltaTime, prevForward, prevVelocity.magnitude * Time.deltaTime * 2.0f );
 			bool properHit = false;
 			for ( int i = 0; i < hitInfo.Length; ++i )
 			{
