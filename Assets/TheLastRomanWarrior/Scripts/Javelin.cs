@@ -106,13 +106,13 @@ public class Javelin : Throwable
     {
         base.GetReleaseVelocities(hand, out velocity, out angularVelocity);
 
-        // Only keep the forward speed of the javelin
+        // Only keep the upward speed of the javelin
         // Vector3 localVelocity = Quaternion.Inverse(transform.rotation) * velocity;
-        // localVelocity = Vector3.Scale(localVelocity, Vector3.forward);
+        // localVelocity = Vector3.Scale(localVelocity, Vector3.up);
         // velocity = transform.rotation * localVelocity;
 
         // Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-        // localVelocity = Vector3.Scale(localVelocity, Vector3.forward);
+        // localVelocity = Vector3.Scale(localVelocity, Vector3.up);
         // velocity = transform.TransformDirection(localVelocity);
 
         angularVelocity = Vector3.zero;
@@ -128,20 +128,19 @@ public class Javelin : Throwable
         }
 
         GameObject hitObject = collision.collider.gameObject;
-        Enemy enemy = hitObject.GetComponent<Enemy>();
-        PlayerEntity playerEntity = null;
-        if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
 
+        Enemy enemy = hitObject.GetComponent<Enemy>();
+        PlayerEntity playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
+        
         float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
         {
             enemy.ReduceHealth(damage);
         }
-        else if (playerEntity != null && rbSpeed > validSpeed)
+        else if (playerEntity && rbSpeed > validSpeed)
         {
             playerEntity.ReduceHealth(damage);
         }
-
         if (collision.relativeVelocity.magnitude > validSpeed)
         {
             // audioSource.Play();
@@ -149,13 +148,13 @@ public class Javelin : Throwable
 
         
         bool hitShield = hitObject.GetComponent<Shield>() != null;
-        bool hitPlayer = playerEntity != null;
+        bool hitPlayer = hitObject.GetComponent<PlayerEntity>() != null;
 
         canStick = ( rbSpeed > validSpeed  && (hitShield || hitPlayer));
 
         if (canStick)
         {
-            StickInTarget(collision, false);
+            StickInTarget(collision, true);
         }
 
             
@@ -169,8 +168,7 @@ public class Javelin : Throwable
 		if ( !bSkipRayCast )
 		{
 			RaycastHit[] hitInfo;
-            // 2.0f is the length of the shaft
-			hitInfo = Physics.RaycastAll( prevHeadPosition - prevForward * 2.0f, prevForward, 3.0f );
+			hitInfo = Physics.RaycastAll( prevHeadPosition - prevVelocity * Time.deltaTime, prevForward, prevVelocity.magnitude * Time.deltaTime * 2.0f );
 			bool properHit = false;
 			for ( int i = 0; i < hitInfo.Length; ++i )
 			{
@@ -188,7 +186,6 @@ public class Javelin : Throwable
 				return;
 			}
 		}
-        
 
         shaftRB.velocity = Vector3.zero;
 		shaftRB.angularVelocity = Vector3.zero;

@@ -39,13 +39,36 @@ public class EnemyController : MonoBehaviour
     private bool isReachMin;
     private bool isAttack;
 
-    private float javelinSpeed;
+    private float ySpeed;
+ 
+   
 
     public System.Action dieAction;
 
+    #region Javelin throw attributes
+    //Enemy throw Javelin 
+    private float gravity = 1f;
+
+    private float angle;
+    private float angleSpeed;
+    private GameObject tempJavelinInstance;
+    private Vector3 javelinMovingVec;
+    private Vector3 targetPos;
+    //Horizontal speed
+    private float javelinSpeedHorizontal;
+    private float verticalSpeed;
+    private Rigidbody javelinRigid;
+    private float javelinSpeedEndVertical = -2f;
+    private bool isJavelinThrowed;
+    private float flyTime;
+    #endregion
+    
     #region Timer
 
     private float timer;
+    private float javelinTimer;
+    
+    
 
     #endregion
 
@@ -59,11 +82,16 @@ public class EnemyController : MonoBehaviour
         enemyMoveLock = false;
         maxShootDistance = 30f;
         enemyObj = this.gameObject;
+       
         minDistance = 6f;
         enemyRigid = this.GetComponent<Rigidbody>();
         javelinSpawnPoint = GameObject.Find("WeaponHandlePoint");
         javelinModel = GameObject.Find("JavelinModel");
-        javelinSpeed = 5f;
+        javelinSpeedHorizontal = 10f;
+        ySpeed = 5f;
+        
+
+        isJavelinThrowed = false;
     }
 
     //
@@ -111,7 +139,6 @@ public class EnemyController : MonoBehaviour
             movingVec = Vector3.zero;
             isRun = false;
         }
-
         enemyAnim.SetBool("isRun", isRun);
         enemyAnim.SetBool("isReachMin", isReachMin);
     }
@@ -120,7 +147,7 @@ public class EnemyController : MonoBehaviour
     int GenerateRandomNum()
     {
 
-        if (timer >= 1.5f)
+        if (timer >= 2f)
         {
             Random random = new Random();
             int randomNum = random.Next(50);
@@ -167,6 +194,11 @@ public class EnemyController : MonoBehaviour
         timer += Time.deltaTime;
         CalculateEnemyMove();
         EnemyAttack(GenerateRandomNum());
+        if (isJavelinThrowed)
+        {
+            ThrowTick();
+        }
+        
     }
 
     void FixedUpdate()
@@ -189,32 +221,75 @@ public class EnemyController : MonoBehaviour
 
     public void LaunchJavelin()
     {
-        StartCoroutine(StartShoot());
+        ThrowInit();
+        isJavelinThrowed = true;
     }
 
-    IEnumerator StartShoot()
+    public void ThrowInit()
     {
-        //throw javelin
-        Quaternion rotation=Quaternion.Euler(-90,0,0);
-        GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
-            rotation);
+        GameObject spawnJavelin=Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
+            throwJavelinInstance.transform.rotation);
+        tempJavelinInstance = spawnJavelin;
+        javelinRigid = tempJavelinInstance.GetComponent<Rigidbody>();
+        javelinRigid.isKinematic = true;
+        targetPos = player.transform.position;
         
-        Vector3 targetPos = player.transform.position;
-        float distanceTotarget = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
-        bool isReach = false;
-        while (!isReach)
+        float tempDistance = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
+        
+        float heightDiff = targetPos.y - tempJavelinInstance.transform.position.y;
+       
+        Debug.Log("heightDiff"+heightDiff);
+        float cosTheta = heightDiff / tempDistance;
+
+        float horizontalDistance = tempDistance * Mathf.Sin(Mathf.Acos(cosTheta));
+        Debug.Log("horizontalDistance: "+horizontalDistance);
+        
+        flyTime = horizontalDistance / javelinSpeedHorizontal;
+        Debug.Log("flyTime: "+flyTime);
+        
+        Vector3 flyingDirHorizontal =
+            new Vector3(targetPos.x - tempJavelinInstance.transform.position.x, 0,
+                targetPos.z - tempJavelinInstance.transform.position.z).normalized * javelinSpeedHorizontal;
+
+        float fallTime = javelinSpeedEndVertical / gravity;
+        Debug.Log("fallTime: "+ fallTime);
+        
+        float riseTime = flyTime + fallTime;
+        Debug.Log("riseTime: "+ riseTime);
+        
+        verticalSpeed = riseTime * gravity;
+        Debug.Log("verticalSpeed: "+verticalSpeed);
+        float tempTan = verticalSpeed / javelinSpeedHorizontal;  
+        double hu = Math.Atan(tempTan);  
+        angle = (float)(180 / Math.PI * hu);  
+        transform.eulerAngles = new Vector3(-angle, transform.eulerAngles.y, transform.eulerAngles.z);  
+        angleSpeed = angle / riseTime;  
+        javelinMovingVec = targetPos - transform.position;
+    }
+    //Javelin Shoot
+    void ThrowTick()
+    {
+        if (tempJavelinInstance == null)
         {
-          
-            tempJavelinInstance.transform.LookAt(targetPos);
-            float angle = Mathf.Min(1, Vector3.Distance(tempJavelinInstance.transform.position, targetPos) / distanceTotarget) * 45;
-            tempJavelinInstance.transform.rotation = tempJavelinInstance.transform.rotation *
-                                                     Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
-            
-            float currentDist = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
-            if (currentDist < 0.5f) isReach = true;
-            tempJavelinInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
-            yield return null;
+            Debug.Log("Javelin Null!");
         }
+        float currentDist = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
+        if (javelinTimer>=flyTime)
+        {
+            //finish
+            isJavelinThrowed = false;
+            javelinTimer = 0;
+            javelinRigid.isKinematic = false;
+            Debug.Log("fly end!");
+        }
+        tempJavelinInstance.transform.LookAt(targetPos);
+        javelinTimer += Time.deltaTime;
+        float test = verticalSpeed - gravity * javelinTimer;
+        tempJavelinInstance.transform.Translate(javelinMovingVec.normalized * javelinSpeedHorizontal * Time.deltaTime, Space.World);
+        tempJavelinInstance.transform.Translate(Vector3.up * test * Time.deltaTime,Space.World);
+        
+        float testAngle = -angle + angleSpeed * javelinTimer;  
+        transform.eulerAngles = new Vector3(testAngle, transform.eulerAngles.y, transform.eulerAngles.z);
     }
     
     public void changeToThrow()

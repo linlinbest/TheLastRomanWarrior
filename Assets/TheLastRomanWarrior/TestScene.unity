@@ -2336,6 +2336,7 @@ GameObject:
   - component: {fileID: 202957209}
   - component: {fileID: 202957208}
   - component: {fileID: 202957207}
+  - component: {fileID: 202957211}
   m_Layer: 0
   m_Name: TestPlayer
   m_TagString: Player
@@ -2415,13 +2416,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202957206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 122.77, y: 4.67, z: 110.87}
+  m_LocalPosition: {x: 113.9, y: 4.67, z: 113.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &202957211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202957206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab916ac27663e94a949b2f9e16464e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxhealth: 0
+  health: 10
+  healthBar: {fileID: 0}
+  deathUI: {fileID: 0}
 --- !u!1001 &203654341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26288,5 +26305,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Onager
       objectReference: {fileID: 0}
+    - target: {fileID: 8975165672540724178, guid: 33e3b7753d616c141a835fd437729a91, type: 3}
+      propertyPath: StoneInstance
+      value: 
+      objectReference: {fileID: 2208028758814644544, guid: 881cf4054c59c494a82029e5ac387ae9, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33e3b7753d616c141a835fd437729a91, type: 3}
