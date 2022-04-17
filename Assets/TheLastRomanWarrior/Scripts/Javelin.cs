@@ -131,6 +131,7 @@ public class Javelin : Throwable
         Enemy enemy = hitObject.GetComponent<Enemy>();
         PlayerEntity playerEntity = null;
         if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
+        // !!
 
         float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
