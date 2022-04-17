@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 8f052ef126bf1c848bb01cdaae6ad63f
+guid: c86f132a2117c434c838ac0e95800738
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Throw_die_right
+    second: DeadBody
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -36,11 +36,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Throw_die_right
+      name: DeadBody
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
-      lastFrame: 108
+      firstFrame: 105
+      lastFrame: 106
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
