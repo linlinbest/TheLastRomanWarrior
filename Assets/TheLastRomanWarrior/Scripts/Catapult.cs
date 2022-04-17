@@ -96,9 +96,9 @@ public class Catapult : MonoBehaviour
     IEnumerator StartShoot()
     {
         //throw javelin
-        Quaternion rotation=Quaternion.Euler(-90,0,0);
+        
         GameObject tempStoneInstance = Instantiate(StoneInstance, launchPoint.transform.position,
-            rotation);
+            StoneInstance.transform.rotation);
         
         Vector3 targetPos = player.transform.position;
         float distanceTotarget = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
