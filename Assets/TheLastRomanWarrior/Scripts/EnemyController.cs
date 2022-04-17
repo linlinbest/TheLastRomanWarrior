@@ -58,7 +58,7 @@ public class EnemyController : MonoBehaviour
     private float javelinSpeedHorizontal;
     private float verticalSpeed;
     private Rigidbody javelinRigid;
-    private float javelinSpeedEndVertical = -2f;
+    private float javelinSpeedEndVertical = -3f;
     private bool isJavelinThrowed;
     private float flyTime;
     #endregion
@@ -232,7 +232,7 @@ public class EnemyController : MonoBehaviour
         tempJavelinInstance = spawnJavelin;
         javelinRigid = tempJavelinInstance.GetComponent<Rigidbody>();
         javelinRigid.isKinematic = true;
-        targetPos = player.transform.position+new Vector3(0,2,0);
+        targetPos = player.transform.position+new Vector3(0,1,0);
         
         float tempDistance = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         
