@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
 
     #region Javelin throw attributes
     //Enemy throw Javelin 
-    private float gravity = 1f;
+    private float gravity = 1.5f;
 
     private float angle;
     private float angleSpeed;
@@ -232,7 +232,7 @@ public class EnemyController : MonoBehaviour
         tempJavelinInstance = spawnJavelin;
         javelinRigid = tempJavelinInstance.GetComponent<Rigidbody>();
         javelinRigid.isKinematic = true;
-        targetPos = player.transform.position;
+        targetPos = player.transform.position+new Vector3(0,2,0);
         
         float tempDistance = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         
