@@ -233,7 +233,7 @@ public class EnemyController : MonoBehaviour
         javelinRigid = tempJavelinInstance.GetComponent<Rigidbody>();
         javelinRigid.isKinematic = true;
         
-        targetPos = player.transform.position+new Vector3(0,1.2f,0);
+        targetPos = player.transform.position+new Vector3(0,1.1f,0);
         
         float tempDistance = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         
@@ -283,6 +283,7 @@ public class EnemyController : MonoBehaviour
             javelinRigid.isKinematic = false;
             Debug.Log("fly end!");
         }
+        
         tempJavelinInstance.transform.LookAt(targetPos);
         javelinTimer += Time.deltaTime;
         float test = verticalSpeed - gravity * javelinTimer;
