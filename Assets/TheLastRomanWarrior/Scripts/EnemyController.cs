@@ -232,17 +232,18 @@ public class EnemyController : MonoBehaviour
         tempJavelinInstance = spawnJavelin;
         javelinRigid = tempJavelinInstance.GetComponent<Rigidbody>();
         javelinRigid.isKinematic = true;
-        targetPos = player.transform.position+new Vector3(0,1,0);
+        
+        targetPos = player.transform.position+new Vector3(0,1.2f,0);
         
         float tempDistance = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         
         float heightDiff = targetPos.y - tempJavelinInstance.transform.position.y;
        
-        Debug.Log("heightDiff"+heightDiff);
+       // Debug.Log("heightDiff"+heightDiff);
         float cosTheta = heightDiff / tempDistance;
 
         float horizontalDistance = tempDistance * Mathf.Sin(Mathf.Acos(cosTheta));
-        Debug.Log("horizontalDistance: "+horizontalDistance);
+       // Debug.Log("horizontalDistance: "+horizontalDistance);
         
         flyTime = horizontalDistance / javelinSpeedHorizontal;
         Debug.Log("flyTime: "+flyTime);
@@ -252,13 +253,13 @@ public class EnemyController : MonoBehaviour
                 targetPos.z - tempJavelinInstance.transform.position.z).normalized * javelinSpeedHorizontal;
 
         float fallTime = javelinSpeedEndVertical / gravity;
-        Debug.Log("fallTime: "+ fallTime);
+       // Debug.Log("fallTime: "+ fallTime);
         
         float riseTime = flyTime + fallTime;
-        Debug.Log("riseTime: "+ riseTime);
+       // Debug.Log("riseTime: "+ riseTime);
         
         verticalSpeed = riseTime * gravity;
-        Debug.Log("verticalSpeed: "+verticalSpeed);
+      //  Debug.Log("verticalSpeed: "+verticalSpeed);
         float tempTan = verticalSpeed / javelinSpeedHorizontal;  
         double hu = Math.Atan(tempTan);  
         angle = (float)(180 / Math.PI * hu);  
