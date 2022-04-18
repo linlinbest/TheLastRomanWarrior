@@ -563,7 +563,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stoneModel: {fileID: 7964886331036758779}
   launchPoint: {fileID: 4825654192797935554}
-  throwStoneInstance: {fileID: 2208028758814644544, guid: 881cf4054c59c494a82029e5ac387ae9, type: 3}
+  ammunition: 3
+  StoneInstance: {fileID: 2208028758814644544, guid: 881cf4054c59c494a82029e5ac387ae9, type: 3}
 --- !u!1 &4825654192797935554
 GameObject:
   m_ObjectHideFlags: 0

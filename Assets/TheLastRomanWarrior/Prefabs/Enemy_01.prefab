@@ -2176,7 +2176,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnim: {fileID: 0}
   player: {fileID: 0}
-  enemySensor: {fileID: 0}
   throwJavelinInstance: {fileID: 2447999785227794509, guid: d4b3fcd867e6e5b4abde65b5dbaa2cb5, type: 3}
   javelinSpawnPoint: {fileID: 0}
   javelinModel: {fileID: 0}
