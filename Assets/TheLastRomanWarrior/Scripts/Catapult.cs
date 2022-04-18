@@ -16,6 +16,9 @@ public class Catapult : MonoBehaviour
     private bool canAttack;
     private float flySpeed;
 
+    [Header("Fire Rate")] 
+    public float fireRate;
+
     private float timer;
 
     void Awake()
@@ -73,7 +76,7 @@ public class Catapult : MonoBehaviour
     int GenerateRandomNum()
     {
 
-        if (timer >= 2f)
+        if (timer >= fireRate)
         {
             Random random = new Random();
             int randomNum = random.Next(50);

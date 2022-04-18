@@ -12,7 +12,9 @@ public class EnemyController : MonoBehaviour
     public Animator enemyAnim;
     [SerializeField] private GameObject player;
 
-
+    [Header("Fire Rate")] 
+    public float fireRate;
+    
     //self attributes
     private GameObject enemyObj;
     
@@ -137,7 +139,7 @@ public class EnemyController : MonoBehaviour
     //Random num was generated to control whether enemy can attack at this time
     int GenerateRandomNum()
     {
-        if (timer >= 1.5f)
+        if (timer >= fireRate)
         {
             Random random = new Random();
             int randomNum = random.Next(50);
