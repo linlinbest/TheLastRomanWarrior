@@ -32,7 +32,7 @@ public class Catapult : MonoBehaviour
         isAttack = false;
         canAttack = true;
         ammunition = 3;
-        flySpeed = 10;
+        flySpeed = 18;
     }
 
     bool CheckPlayerValidity()
@@ -56,6 +56,10 @@ public class Catapult : MonoBehaviour
         {
             catapultAnim.SetBool("noAmmo", true);
             canAttack = false;
+        }
+        else
+        {
+            canAttack = true;
         }
         CatapultAttack(GenerateRandomNum());
         this.transform.LookAt(player.transform.position);
@@ -112,7 +116,11 @@ public class Catapult : MonoBehaviour
                                                    Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
             
             float currentDist = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
-            if (currentDist < 0.5f) isReach = true;
+            if (currentDist < 0.5f)
+            {
+                isReach = true;
+                
+            }
             tempStoneInstance.transform.Translate(Vector3.forward * Mathf.Min( flySpeed * Time.deltaTime, currentDist));
             yield return null;
         }
