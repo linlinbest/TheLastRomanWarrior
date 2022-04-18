@@ -85,7 +85,7 @@ public class GlobalObject : MonoBehaviour
 
     void endGame()
     {
-        SceneManager.LoadScene("BeginScene");
+        SceneManager.LoadScene("RealBeginScene");
     }
 
     void invaderDestoryed()

@@ -24,7 +24,7 @@ public class PlayerEntity : MonoBehaviour
 
     void endGame()
     {
-        SceneManager.LoadScene("BeginScene");
+        SceneManager.LoadScene("RealBeginScene");
     }
 
     public void ReduceHealth(int damage)
