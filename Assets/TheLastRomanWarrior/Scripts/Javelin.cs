@@ -152,7 +152,7 @@ public class Javelin : Throwable
         bool hitShield = hitObject.GetComponent<Shield>() != null;
         bool hitPlayer = playerEntity != null;
 
-        canStick = ( rbSpeed > validSpeed  && (hitShield || hitPlayer));
+        canStick = ( rbSpeed > validSpeed  && (hitShield));
 
         if (canStick)
         {

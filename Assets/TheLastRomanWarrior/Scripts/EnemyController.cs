@@ -21,8 +21,8 @@ public class EnemyController : MonoBehaviour
     private GameObject tempJavelinInstance;
 
     //model's holding
-    [SerializeField] private GameObject javelinSpawnPoint;
-    [SerializeField] private GameObject javelinModel;
+    public GameObject javelinSpawnPoint;
+    public GameObject javelinModel;
     private Rigidbody enemyRigid;
 
     [Header("Moving Control")] [SerializeField]
@@ -80,8 +80,6 @@ public class EnemyController : MonoBehaviour
 
         minDistance = 6f;
         enemyRigid = this.GetComponent<Rigidbody>();
-        javelinSpawnPoint = GameObject.Find("WeaponHandlePoint");
-        javelinModel = GameObject.Find("JavelinModel");
         isJavelinThrowed = false;
 
         ySpeed = 5f;
