@@ -2176,10 +2176,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnim: {fileID: 0}
   player: {fileID: 0}
-  enemySensor: {fileID: 0}
   throwJavelinInstance: {fileID: 2447999785227794509, guid: d4b3fcd867e6e5b4abde65b5dbaa2cb5, type: 3}
-  javelinSpawnPoint: {fileID: 0}
-  javelinModel: {fileID: 0}
+  javelinSpawnPoint: {fileID: 8598122207848719638}
+  javelinModel: {fileID: 6648341893002978591}
   moveSpeed: 0
   minDistance: 0
   enemyMoveLock: 0
@@ -3018,6 +3017,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7750f25bf58d2446b5fec44e900da1a, type: 3}
+--- !u!1 &6648341893002978591 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5049448115791561265, guid: b7750f25bf58d2446b5fec44e900da1a, type: 3}
+  m_PrefabInstance: {fileID: 1896184719734728494}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6648341893003240377 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5049448115791299735, guid: b7750f25bf58d2446b5fec44e900da1a, type: 3}
