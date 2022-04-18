@@ -9,7 +9,7 @@ public class Javelin : Throwable
     [SerializeField]
     private int damage = 1;
 
-    [Tooltip("The speed threshold to deal damage")]
+    [Tooltip("The speed threshold to deal damage on enemies")]
     [SerializeField]
     private float validSpeed = 0.5f;
 
@@ -138,7 +138,7 @@ public class Javelin : Throwable
         {
             enemy.ReduceHealth(damage);
         }
-        else if (playerEntity != null && rbSpeed > validSpeed)
+        else if (playerEntity != null && rbSpeed > 5.0f)
         {
             playerEntity.ReduceHealth(damage);
         }
