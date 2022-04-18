@@ -52,8 +52,7 @@ public class EnemyController : MonoBehaviour
 
     private float gravity = -9.8f;
     private bool isJavelinThrowed;
-    private Vector3 initSpeed;
-    private Vector3 gravitySpeed;
+
     private float javelinSpeed=13f;
     private Vector3 currentAngle;
 
@@ -211,22 +210,22 @@ public class EnemyController : MonoBehaviour
     IEnumerator StartShoot()
     {
         //throw javelin
-        GameObject tempStoneInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
+        GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
             javelinSpawnPoint.transform.rotation);
         
         Vector3 targetPos = player.transform.position;
-        float distanceTotarget = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
+        float distanceTotarget = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         bool isReach = false;
         while (!isReach)
         {
-            tempStoneInstance.transform.LookAt(targetPos);
-            float angle = Mathf.Min(1, Vector3.Distance(tempStoneInstance.transform.position, targetPos) / distanceTotarget) * 45;
-            tempStoneInstance.transform.rotation = tempStoneInstance.transform.rotation *
-                                                   Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
+            tempJavelinInstance.transform.LookAt(targetPos);
+            float angle = Mathf.Min(1, Vector3.Distance(tempJavelinInstance.transform.position, targetPos) / distanceTotarget) * 45;
+            tempJavelinInstance.transform.rotation = tempJavelinInstance.transform.rotation *
+                                                     Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
             
-            float currentDist = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
+            float currentDist = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
             if (currentDist < 0.5f) isReach = true;
-            tempStoneInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
+            tempJavelinInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
             yield return null;
         }
     }
