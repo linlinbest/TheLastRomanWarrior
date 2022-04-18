@@ -53,7 +53,7 @@ public class EnemyController : MonoBehaviour
     private float gravity = -9.8f;
     private bool isJavelinThrowed;
 
-    private float javelinSpeed=13f;
+    private float javelinSpeed=10f;
     private Vector3 currentAngle;
 
     private Rigidbody javelinRigid;
@@ -102,7 +102,16 @@ public class EnemyController : MonoBehaviour
            
             //Enemy move
             float distance = Vector3.Magnitude(playerPos - enemyObj.transform.position);
-            
+
+            if (distance > 30f)
+            {
+                javelinSpeed = 18f;
+            }
+            else if (distance > 10f)
+            {
+                javelinSpeed = 12f;
+            }
+
             if (distance >= minDistance)
             {
                 movingVec = moveSpeed * enemyObj.transform.forward;
