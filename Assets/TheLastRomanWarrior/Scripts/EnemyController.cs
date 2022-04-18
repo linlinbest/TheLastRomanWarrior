@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour
     private bool isJavelinThrowed;
     private Vector3 initSpeed;
     private Vector3 gravitySpeed;
-    private float javelinSpeed=12f;
+    private float javelinSpeed=14f;
     private Vector3 currentAngle;
 
     private Rigidbody javelinRigid;
