@@ -43,6 +43,6 @@ public class UIObject : MonoBehaviour
 
     public void openLevelOne()
     {
-        SceneManager.LoadScene("level1");
+        SceneManager.LoadScene("RealLevel1");
     }
 }
