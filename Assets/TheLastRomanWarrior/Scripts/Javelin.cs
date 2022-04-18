@@ -131,14 +131,16 @@ public class Javelin : Throwable
         Enemy enemy = hitObject.GetComponent<Enemy>();
         PlayerEntity playerEntity = null;
         if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
-        // !!
+
+        bool hitShield = hitObject.GetComponent<Shield>() != null;
+        bool hitPlayer = playerEntity != null;
 
         float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
         {
             enemy.ReduceHealth(damage);
         }
-        else if (playerEntity != null && rbSpeed > 5.0f)
+        else if (!hitShield && playerEntity != null && rbSpeed > 5.0f)
         {
             playerEntity.ReduceHealth(damage);
         }
@@ -149,8 +151,7 @@ public class Javelin : Throwable
         }
 
         
-        bool hitShield = hitObject.GetComponent<Shield>() != null;
-        bool hitPlayer = playerEntity != null;
+        
 
         canStick = ( rbSpeed > validSpeed  && (hitShield));
 
