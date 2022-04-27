@@ -9,11 +9,15 @@ public class Catapult : MonoBehaviour
     [SerializeField] private GameObject launchPoint;
     [SerializeField] private int ammunition;
     private Animator catapultAnim;
+    private Rigidbody stoneRigid;
     public GameObject StoneInstance;
     private GameObject player;
     private bool isAttack;
     private bool canAttack;
     private float flySpeed;
+
+    [Header("Fire Rate")] 
+    public float fireRate;
 
     private float timer;
 
@@ -32,7 +36,7 @@ public class Catapult : MonoBehaviour
         isAttack = false;
         canAttack = true;
         ammunition = 3;
-        flySpeed = 18;
+        flySpeed = 14;
     }
 
     bool CheckPlayerValidity()
@@ -72,7 +76,7 @@ public class Catapult : MonoBehaviour
     int GenerateRandomNum()
     {
 
-        if (timer >= 1.5f)
+        if (timer >= fireRate)
         {
             Random random = new Random();
             int randomNum = random.Next(50);
@@ -103,7 +107,8 @@ public class Catapult : MonoBehaviour
         
         GameObject tempStoneInstance = Instantiate(StoneInstance, launchPoint.transform.position,
             StoneInstance.transform.rotation);
-        
+        stoneRigid = tempStoneInstance.GetComponent<Rigidbody>();
+        stoneRigid.isKinematic = true;
         Vector3 targetPos = player.transform.position;
         float distanceTotarget = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
         bool isReach = false;
@@ -119,7 +124,8 @@ public class Catapult : MonoBehaviour
             if (currentDist < 0.5f)
             {
                 isReach = true;
-                
+                stoneRigid.isKinematic = false;
+
             }
             tempStoneInstance.transform.Translate(Vector3.forward * Mathf.Min( flySpeed * Time.deltaTime, currentDist));
             yield return null;
@@ -131,7 +137,6 @@ public class Catapult : MonoBehaviour
     {
         stoneModel.SetActive(false);
         ammunition--;
-        Debug.Log("Call throw stone");
         LaunchStone();
     }
     public void Reload()

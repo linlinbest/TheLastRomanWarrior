@@ -12,7 +12,9 @@ public class EnemyController : MonoBehaviour
     public Animator enemyAnim;
     [SerializeField] private GameObject player;
 
-
+    [Header("Fire Rate")] 
+    public float fireRate;
+    
     //self attributes
     private GameObject enemyObj;
     
@@ -52,9 +54,8 @@ public class EnemyController : MonoBehaviour
 
     private float gravity = -9.8f;
     private bool isJavelinThrowed;
-    private Vector3 initSpeed;
-    private Vector3 gravitySpeed;
-    private float javelinSpeed=13f;
+
+    private float javelinSpeed=10f;
     private Vector3 currentAngle;
 
     private Rigidbody javelinRigid;
@@ -103,7 +104,16 @@ public class EnemyController : MonoBehaviour
            
             //Enemy move
             float distance = Vector3.Magnitude(playerPos - enemyObj.transform.position);
-            
+
+            if (distance > 30f)
+            {
+                javelinSpeed = 18f;
+            }
+            else if (distance > 10f)
+            {
+                javelinSpeed = 12f;
+            }
+
             if (distance >= minDistance)
             {
                 movingVec = moveSpeed * enemyObj.transform.forward;
@@ -129,7 +139,7 @@ public class EnemyController : MonoBehaviour
     //Random num was generated to control whether enemy can attack at this time
     int GenerateRandomNum()
     {
-        if (timer >= 1.5f)
+        if (timer >= fireRate)
         {
             Random random = new Random();
             int randomNum = random.Next(50);
@@ -209,22 +219,26 @@ public class EnemyController : MonoBehaviour
     IEnumerator StartShoot()
     {
         //throw javelin
-        GameObject tempStoneInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
+        GameObject tempJavelinInstance = Instantiate(throwJavelinInstance, javelinSpawnPoint.transform.position,
             javelinSpawnPoint.transform.rotation);
         
         Vector3 targetPos = player.transform.position;
-        float distanceTotarget = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
+        float distanceTotarget = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
         bool isReach = false;
         while (!isReach)
         {
-            tempStoneInstance.transform.LookAt(targetPos);
-            float angle = Mathf.Min(1, Vector3.Distance(tempStoneInstance.transform.position, targetPos) / distanceTotarget) * 45;
-            tempStoneInstance.transform.rotation = tempStoneInstance.transform.rotation *
-                                                   Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
+            //Stop translating javelin after javelin sticks on the shield
+            Javelin javelin = tempJavelinInstance.GetComponent<Javelin>();
+            if (javelin && javelin.canStick) break;
+
+            tempJavelinInstance.transform.LookAt(targetPos);
+            float angle = Mathf.Min(1, Vector3.Distance(tempJavelinInstance.transform.position, targetPos) / distanceTotarget) * 45;
+            tempJavelinInstance.transform.rotation = tempJavelinInstance.transform.rotation *
+                                                     Quaternion.Euler(Mathf.Clamp(-angle, -42, 42), 0, 0);
             
-            float currentDist = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
+            float currentDist = Vector3.Distance(tempJavelinInstance.transform.position, targetPos);
             if (currentDist < 0.5f) isReach = true;
-            tempStoneInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
+            tempJavelinInstance.transform.Translate(Vector3.forward * Mathf.Min( javelinSpeed * Time.deltaTime, currentDist));
             yield return null;
         }
     }

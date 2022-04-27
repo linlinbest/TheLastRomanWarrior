@@ -9,7 +9,7 @@ public class Javelin : Throwable
     [SerializeField]
     private int damage = 1;
 
-    [Tooltip("The speed threshold to deal damage")]
+    [Tooltip("The speed threshold to deal damage on enemies")]
     [SerializeField]
     private float validSpeed = 0.5f;
 
@@ -18,7 +18,7 @@ public class Javelin : Throwable
     private Vector3 relativeRotation = Vector3.zero;
 
     private bool isReleased;
-    private bool canStick;
+    public bool canStick;
 
     [SerializeField]
     private Rigidbody headRB;
@@ -36,6 +36,7 @@ public class Javelin : Throwable
     {
         canStick = false;
         isReleased = true;
+        
     }
 
     void FixedUpdate()
@@ -51,7 +52,7 @@ public class Javelin : Throwable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // protected override void OnHandHoverBegin(Hand hand)
@@ -131,14 +132,16 @@ public class Javelin : Throwable
         Enemy enemy = hitObject.GetComponent<Enemy>();
         PlayerEntity playerEntity = null;
         if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
-        // !!
+
+        bool hitShield = hitObject.GetComponent<Shield>() != null;
+        bool hitPlayer = playerEntity != null;
 
         float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
         {
             enemy.ReduceHealth(damage);
         }
-        else if (playerEntity != null && rbSpeed > validSpeed)
+        else if (!hitShield && playerEntity != null && rbSpeed > 5.0f)
         {
             playerEntity.ReduceHealth(damage);
         }
@@ -149,8 +152,7 @@ public class Javelin : Throwable
         }
 
         
-        bool hitShield = hitObject.GetComponent<Shield>() != null;
-        bool hitPlayer = playerEntity != null;
+        
 
         canStick = ( rbSpeed > validSpeed  && (hitShield));
 
@@ -165,6 +167,7 @@ public class Javelin : Throwable
     private void StickInTarget(Collision collision, bool bSkipRayCast)
     {
         Vector3 prevForward = prevRotation * Vector3.forward;
+        Vector3 hitPos = Vector3.positiveInfinity;
 
         // Only stick in target if the collider is front of the javelin head
 		if ( !bSkipRayCast )
@@ -180,6 +183,7 @@ public class Javelin : Throwable
 				if ( hit.collider == collision.collider )
 				{
 					properHit = true;
+                    hitPos = hit.point;
 					break;
 				}
 			}
@@ -203,6 +207,13 @@ public class Javelin : Throwable
 
         GameObject hitTarget = collision.collider.gameObject;
         transform.parent = hitTarget.transform;
+
+        float distHeadToShaftCenter = Vector3.Distance(headRB.transform.position, headRB.transform.parent.position) - 0.1f;
+
+        if (hitPos != Vector3.positiveInfinity)
+        {
+            transform.position = hitPos - distHeadToShaftCenter * headRB.transform.forward;
+        }
 
     }
 }
