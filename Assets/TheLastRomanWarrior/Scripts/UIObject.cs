@@ -45,4 +45,9 @@ public class UIObject : MonoBehaviour
     {
         SceneManager.LoadScene("RealLevel1");
     }
+
+    public void openLevelTwo()
+    {
+        SceneManager.LoadScene("RealLevel2");
+    }
 }
