@@ -26096,12 +26096,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanEnemyGenerator:
   - {fileID: 1553352254}
+  - {fileID: 510353478}
+  - {fileID: 1321887224}
   enemyWavePosNum: 
   waveTime:
   - 1
-  - 30
+  - 20
+  - 60
+  - 110
+  - 111
   numberEnemyEachPos: 2
-  maxEnemyNum: 15
+  maxEnemyNum: 27
   enemyGenerated: 0
   enemyDestoried: 0
   winUI: {fileID: 1011821304}
