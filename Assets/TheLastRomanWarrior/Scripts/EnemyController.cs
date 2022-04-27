@@ -66,6 +66,7 @@ public class EnemyController : MonoBehaviour
     private float timer;
     private float javelinTimer;
     
+    [SerializeField] private AudioClip throwingSound;
     
 
     #endregion
@@ -257,6 +258,10 @@ public class EnemyController : MonoBehaviour
     }
     public void throwJavelin()
     {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.clip = throwingSound;
+        audio.Play();
+
         enemyMoveLock = true;
         LaunchJavelin();
         javelinModel.SetActive(false);
