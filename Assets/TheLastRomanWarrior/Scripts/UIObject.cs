@@ -50,4 +50,9 @@ public class UIObject : MonoBehaviour
     {
         SceneManager.LoadScene("RealLevel2");
     }
+
+    public void openLevelThree()
+    {
+        SceneManager.LoadScene("RealLevel3");
+    }
 }
