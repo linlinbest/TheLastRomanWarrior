@@ -133,7 +133,8 @@ public class Javelin : Throwable
         GameObject hitObject = collision.collider.gameObject;
         Enemy enemy = hitObject.GetComponent<Enemy>();
         PlayerEntity playerEntity = null;
-        if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
+        if (hitObject.transform.parent != null && hitObject.transform.parent.parent != null) playerEntity = hitObject.transform.parent.parent.GetComponentInParent<PlayerEntity>();
+        // if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
 
         bool hitShield = hitObject.GetComponent<Shield>() != null;
         bool hitPlayer = playerEntity != null;
