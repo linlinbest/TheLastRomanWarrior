@@ -8,6 +8,7 @@ public class Catapult : MonoBehaviour
     [SerializeField] private GameObject stoneModel;
     [SerializeField] private GameObject launchPoint;
     [SerializeField] private int ammunition;
+    [SerializeField] private GameObject AlarmUI;
     private Animator catapultAnim;
     private Rigidbody stoneRigid;
     public GameObject StoneInstance;
@@ -104,7 +105,9 @@ public class Catapult : MonoBehaviour
     IEnumerator StartShoot()
     {
         //throw javelin
-        
+
+        AlarmUI.SetActive(true);
+        Invoke("CloseAlarm", 2.0f);
         GameObject tempStoneInstance = Instantiate(StoneInstance, launchPoint.transform.position,
             StoneInstance.transform.rotation);
         stoneRigid = tempStoneInstance.GetComponent<Rigidbody>();
@@ -142,5 +145,10 @@ public class Catapult : MonoBehaviour
     public void Reload()
     {
         stoneModel.SetActive(true);
+    }
+
+    public void CloseAlarm()
+    {
+        AlarmUI.SetActive(false);
     }
 }
