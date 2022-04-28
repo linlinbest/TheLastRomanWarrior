@@ -69,6 +69,6 @@ public class PlayerEntity : MonoBehaviour
         ClearShield();
 
         if (deathUI == null) deathUI = GameObject.Find("/LevelCanvas/DeathUI");
-        deathUI.SetActive(false);
+        if (deathUI) deathUI.SetActive(false);
     }
 }
