@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     private Collider enemyCollider;
     private Rigidbody enemyRigid;
     public System.Action dieAction;
+
+    [SerializeField] private AudioClip deathSound;
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,6 +49,11 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
+        AudioSource audio = GetComponent<AudioSource>();
+        audio.Pause();
+        audio.clip = deathSound;
+        audio.Play();
+
         this.dieAction.Invoke();
         int deathNum = Random.Range(0, 2);
         enemyAnim.SetBool("isDeath",true);

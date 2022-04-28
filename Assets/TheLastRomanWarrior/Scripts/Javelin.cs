@@ -30,6 +30,8 @@ public class Javelin : Throwable
     private Vector3 prevVelocity;
 	private Vector3 prevHeadPosition;
 
+    [SerializeField] private AudioClip hitShieldSound;
+
     
     // Start is called before the first frame update
     void Start()
@@ -158,6 +160,10 @@ public class Javelin : Throwable
 
         if (canStick)
         {
+            AudioSource audio = GetComponent<AudioSource>();
+            audio.clip = hitShieldSound;
+            audio.Play();
+
             StickInTarget(collision, false);
         }
 
