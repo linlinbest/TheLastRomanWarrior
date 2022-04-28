@@ -32,12 +32,15 @@ public class Javelin : Throwable
 
     [SerializeField] private AudioClip hitShieldSound;
 
+    private bool hitShield = false;
+
     
     // Start is called before the first frame update
     void Start()
     {
         canStick = false;
         isReleased = true;
+        hitShield = false;
         
     }
 
@@ -88,6 +91,7 @@ public class Javelin : Throwable
         
         isReleased = false;
         canStick = false;
+        hitShield = false;
     }
 
     protected override void OnDetachedFromHand(Hand hand)
@@ -136,7 +140,7 @@ public class Javelin : Throwable
         if (hitObject.transform.parent != null && hitObject.transform.parent.parent != null) playerEntity = hitObject.transform.parent.parent.GetComponentInParent<PlayerEntity>();
         // if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
 
-        bool hitShield = hitObject.GetComponent<Shield>() != null;
+        if (playerEntity == null) hitShield = hitObject.GetComponent<Shield>() != null;
         bool hitPlayer = playerEntity != null;
 
         float rbSpeed = headRB.velocity.magnitude;

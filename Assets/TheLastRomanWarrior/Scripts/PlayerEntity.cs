@@ -15,6 +15,8 @@ public class PlayerEntity : MonoBehaviour
 
     public GameObject deathUI;
 
+    public GameObject shieldObj;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +26,7 @@ public class PlayerEntity : MonoBehaviour
 
     void endGame()
     {
+        Reset();
         SceneManager.LoadScene("RealBeginScene");
     }
 
@@ -43,9 +46,29 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    public void ClearShield()
+    {
+        foreach(Transform shieldChild in shieldObj.transform)
+        {
+            if (shieldChild.tag == "Javelin")
+            {
+                Destroy(shieldChild.gameObject);
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void Reset()
+    {
+        health = maxhealth;
+        ClearShield();
+
+        if (deathUI == null) deathUI = GameObject.Find("/LevelCanvas/DeathUI");
+        deathUI.SetActive(false);
     }
 }

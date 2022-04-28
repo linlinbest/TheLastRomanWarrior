@@ -35,6 +35,7 @@ public class GlobalObject : MonoBehaviour
     float xOffset;
     float zOffset;
     
+    public PlayerEntity playerEntity;
 
     
 
@@ -50,7 +51,8 @@ public class GlobalObject : MonoBehaviour
         enemyGenerated =0;
         enemyDestoried = 0;
 
-
+        if (playerEntity) playerEntity = GameObject.Find("Player").GetComponent<PlayerEntity>();
+        playerEntity.Reset();
     }
 
     // Update is called once per frame
@@ -85,6 +87,7 @@ public class GlobalObject : MonoBehaviour
 
     void endGame()
     {
+        playerEntity.Reset();
         SceneManager.LoadScene("RealBeginScene");
     }
 
