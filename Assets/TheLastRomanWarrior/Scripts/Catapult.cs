@@ -16,6 +16,7 @@ public class Catapult : MonoBehaviour
     private bool isAttack;
     private bool canAttack;
     private float flySpeed;
+    private AudioSource AudioSource;
 
     [Header("Fire Rate")] 
     public float fireRate;
@@ -38,6 +39,7 @@ public class Catapult : MonoBehaviour
         canAttack = true;
         ammunition = 3;
         flySpeed = 14;
+        AudioSource = this.GetComponent<AudioSource>();
     }
 
     bool CheckPlayerValidity()
@@ -112,6 +114,7 @@ public class Catapult : MonoBehaviour
             StoneInstance.transform.rotation);
         stoneRigid = tempStoneInstance.GetComponent<Rigidbody>();
         stoneRigid.isKinematic = true;
+        AudioSource.Play();
         Vector3 targetPos = player.transform.position;
         float distanceTotarget = Vector3.Distance(tempStoneInstance.transform.position, targetPos);
         bool isReach = false;
