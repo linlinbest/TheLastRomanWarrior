@@ -140,8 +140,15 @@ public class Javelin : Throwable
         if (hitObject.transform.parent != null && hitObject.transform.parent.parent != null) playerEntity = hitObject.transform.parent.parent.GetComponentInParent<PlayerEntity>();
         // if (hitObject.transform.parent != null) playerEntity = hitObject.transform.parent.GetComponentInParent<PlayerEntity>();
 
-        if (playerEntity == null) hitShield = hitObject.GetComponent<Shield>() != null;
+        hitShield = hitObject.GetComponent<Shield>() != null;
         bool hitPlayer = playerEntity != null;
+
+        // if (hitShield) Debug.Log("shield");
+        // if (hitPlayer) Debug.Log("player");
+        Debug.Log("shield: "  + hitShield + "player: " +hitPlayer);
+        
+        // bool isOnShield = false;
+        // if (transform.parent) isOnShield = transform.parent.GetComponent<Shield>() != null;
 
         float rbSpeed = headRB.velocity.magnitude;
         if (enemy != null && rbSpeed > validSpeed)
@@ -151,14 +158,8 @@ public class Javelin : Throwable
         else if (!hitShield && playerEntity != null && rbSpeed > 5.0f)
         {
             playerEntity.ReduceHealth(damage);
+            
         }
-
-        if (collision.relativeVelocity.magnitude > validSpeed)
-        {
-            // audioSource.Play();
-        }
-
-        
         
 
         canStick = ( rbSpeed > validSpeed  && (hitShield));
