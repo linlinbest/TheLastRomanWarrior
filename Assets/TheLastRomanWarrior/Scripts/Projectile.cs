@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private int damage = 2;
+    private AudioSource clip;
     // Start is called before the first frame update
     void Start()
     {
-        
+        clip = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -26,6 +28,7 @@ public class Projectile : MonoBehaviour
 
         if (playerEntity != null)
         {
+            clip.Play();
             playerEntity.ReduceHealth(damage);
         }
     }
