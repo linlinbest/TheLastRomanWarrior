@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.075775616, g: 0.016606258, b: 0.005620965, a: 1}
+  m_IndirectSpecularColor: {r: 0.07578195, g: 0.016601916, b: 0.005638036, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22594,6 +22594,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8434889770548517643, guid: f7f98b4c77b019442bafd1ba206fe048, type: 3}
   m_PrefabInstance: {fileID: 953859941}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1549657287 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1970633188, guid: 1c9105d58e8aa9341b24b294bd32e985, type: 3}
+  m_PrefabInstance: {fileID: 2003285650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86119008637b4cb7bc9eb3ab37233cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1553010082
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27960,6 +27971,10 @@ PrefabInstance:
       propertyPath: deathUI
       value: 
       objectReference: {fileID: 1683177994}
+    - target: {fileID: 200746874, guid: 1c9105d58e8aa9341b24b294bd32e985, type: 3}
+      propertyPath: progressbar
+      value: 
+      objectReference: {fileID: 1549657287}
     - target: {fileID: 1290055299, guid: 1c9105d58e8aa9341b24b294bd32e985, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

@@ -1061,7 +1061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 13693334, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Radius
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 13693334, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Enabled
@@ -1102,11 +1102,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab916ac27663e94a949b2f9e16464e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxhealth: 20
+  maxhealth: 45
   health: 0
   healthBar: {fileID: 1213135498}
   deathUI: {fileID: 0}
   shieldObj: {fileID: 21900652105393753}
+  progressbar: {fileID: 0}
 --- !u!4 &7967310277678754308 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 429506, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}

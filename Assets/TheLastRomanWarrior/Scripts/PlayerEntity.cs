@@ -16,12 +16,14 @@ public class PlayerEntity : MonoBehaviour
     public GameObject deathUI;
 
     public GameObject shieldObj;
+    public ProgressBar progressbar;
 
     // Start is called before the first frame update
     void Start()
     {
         health = maxhealth;
         healthBar.setMaxHealth(maxhealth);
+        
     }
 
     void endGame()
@@ -66,6 +68,8 @@ public class PlayerEntity : MonoBehaviour
     public void Reset()
     {
         health = maxhealth;
+        GlobalObject globalObj = GameObject.Find("GlobalObject").GetComponent<GlobalObject>();
+        progressbar.maximum = globalObj.maxEnemyNum;
         ClearShield();
 
         if (deathUI == null) deathUI = GameObject.Find("/LevelCanvas/DeathUI");

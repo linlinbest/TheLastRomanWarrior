@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         canAttack = false;
         isAttack = false;
-        moveSpeed = 2f;
+        // moveSpeed = 2f;
         enemyMoveLock = false;
         maxShootDistance = 30f;
 
@@ -108,11 +108,15 @@ public class EnemyController : MonoBehaviour
 
             if (distance > 30f)
             {
-                javelinSpeed = 18f;
+                javelinSpeed = 32f;
             }
             else if (distance > 10f)
             {
-                javelinSpeed = 12f;
+                javelinSpeed = 23f;
+            }
+            else if (distance > 6f)
+            {
+                javelinSpeed = 15f;
             }
 
             if (distance >= minDistance)

@@ -2177,11 +2177,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnim: {fileID: 0}
   player: {fileID: 0}
-  fireRate: 0
+  fireRate: 5
   throwJavelinInstance: {fileID: 2447999785227794509, guid: d4b3fcd867e6e5b4abde65b5dbaa2cb5, type: 3}
   javelinSpawnPoint: {fileID: 8598122207848719638}
   javelinModel: {fileID: 6648341893002978591}
-  moveSpeed: 0
+  moveSpeed: 1.5
   minDistance: 0
   enemyMoveLock: 0
   throwingSound: {fileID: 8300000, guid: aaa5361fddd674133812420df842446d, type: 3}
