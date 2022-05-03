@@ -87,8 +87,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593456898117358236}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.008091391, z: 3.5368594e-10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,7 +369,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594169516869596940}
   m_LocalRotation: {x: 0.50458133, y: 0.4953749, z: 0.50458276, w: 0.49537623}
-  m_LocalPosition: {x: 0.000000022621713, y: 1.6136416, z: 0.5175245}
+  m_LocalPosition: {x: 0.000000029802322, y: 1.6136416, z: 0.5175245}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -508,7 +508,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 594307998571361012}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.292, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -567,7 +567,7 @@ MonoBehaviour:
   ammunition: 3
   AlarmUI: {fileID: 0}
   StoneInstance: {fileID: 2208028758814644544, guid: 881cf4054c59c494a82029e5ac387ae9, type: 3}
-  fireRate: 0
+  fireRate: 10
 --- !u!82 &8748797250155968514
 AudioSource:
   m_ObjectHideFlags: 0

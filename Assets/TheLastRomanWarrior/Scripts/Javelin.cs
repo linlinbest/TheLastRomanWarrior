@@ -162,7 +162,7 @@ public class Javelin : Throwable
         }
         
 
-        canStick = ( rbSpeed > validSpeed  && (hitShield));
+        canStick = ( /*rbSpeed > validSpeed  &&*/ (hitShield));
 
         if (canStick)
         {
